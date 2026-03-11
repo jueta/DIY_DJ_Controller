@@ -1,5 +1,9 @@
 # CDJ Firmware
 
+![Fusion shot 1](pics/fusion1.png)
+
+![Controller top view 2](pics/overTable2.jpeg)
+
 > **Note:** This README is a work in progress. Screenshots, pictures, references and wiring diagrams will be added soon.
 
 
@@ -26,19 +30,15 @@ The project started as an inspiration from Mandiclabs repo into a complete mappi
 
 Here are some photos from the `pics` folder. They'll render automatically on GitHub as long as the files are committed.
 
-![Controller top view 1](pics/overTable1.jpeg)
+![Fusion shot 2](pics/fusion2.png)
 
-![Controller top view 2](pics/overTable2.jpeg)
+![Fusion shot 3](pics/fusion3.png)
+
+![Controller top view 1](pics/overTable1.jpeg)
 
 ![Soldered board 1](pics/soldered.jpeg)
 
 ![Soldered board 2](pics/soldered2.jpeg)
-
-![Fusion shot 1](pics/fusion1.png)
-
-![Fusion shot 2](pics/fusion2.png)
-
-![Fusion shot 3](pics/fusion3.png)
 
 ![Hands working on board](pics/hands.jpeg)
 
