@@ -1,15 +1,13 @@
-# CDJ Firmware
+# Homemade DIY DJ Controller - CDJ
+
+> **Note:** This REPO and README is a work in progress. Screenshots, pictures, references and wiring diagrams will be added soon.
 
 ![Fusion shot 1](pics/fusion1.png)
-
-![Controller top view 2](pics/overTable2.jpeg)
-
-> **Note:** This README is a work in progress. Screenshots, pictures, references and wiring diagrams will be added soon.
 
 
 ## Introduction
 
-This repository contains firmware for a DIY CDJ‑style DJ controller built around a Sparkfun Pro Micro (ATmega328p @16MHz). The goal is to provide an open‑source, customizable hardware interface that can be used with a computer running DJ software via USB‑MIDI.
+This repository contains project files for a custom home-made CDJ‑style DJ controller built around a Sparkfun Pro Micro (ATmega328p @16MHz). The 3D design model was made on Fusion360. The goal is to provide an open‑source, customizable hardware interface that can be used with a computer running DJ software via USB‑MIDI.
 
 The project started as an inspiration from Mandiclabs repo into a complete mapping for two decks with jog wheels, rotary encoders, potentiometers, and buttons.
 
@@ -33,6 +31,8 @@ Here are some photos from the `pics` folder. They'll render automatically on Git
 ![Fusion shot 2](pics/fusion2.png)
 
 ![Fusion shot 3](pics/fusion3.png)
+
+![Controller top view 2](pics/overTable2.jpeg)
 
 ![Controller top view 1](pics/overTable1.jpeg)
 
