@@ -1,154 +1,161 @@
-# Homemade DIY DJ Controller - CDJ
+# DIY DJ Controller
 
-> **Note:** This REPO and README is a work in progress. Screenshots, pictures, references and wiring diagrams will be added soon.
+Custom homemade CDJ-style DJ controller with a 3D-printed enclosure, hand-built electronics, and USB-MIDI firmware for desktop DJ software.
 
-![Fusion shot 1](pics/fusion1.png)
+This repository documents the project as it evolves from a working prototype into a more professional hardware, firmware, and documentation package.
 
+This project was inspired by my friend [@mandiclab](https://github.com/mandiclab) and the [djc-diy](https://github.com/mandiclab/djc-diy) project.
 
-## Introduction
+## Project Overview
 
-This repository contains project files for a custom home-made CDJ‑style DJ controller built around a Sparkfun Pro Micro (ATmega328p @16MHz). The 3D design model was made on Fusion360. The goal is to provide an open‑source, customizable hardware interface that can be used with a computer running DJ software via USB‑MIDI.
+- **Type:** DIY USB-MIDI DJ controller
+- **Core MCU:** Sparkfun Pro Micro (ATmega328p @ 16 MHz)
+- **Firmware stack:** PlatformIO + Arduino + `MIDIUSB`
+- **Current software path:** Mixxx mapping included in the repo
+- **Design assets:** Fusion 360 model, build photos, firmware, and project docs
 
-The project started as an inspiration from Mandiclabs repo into a complete mapping for two decks with jog wheels, rotary encoders, potentiometers, and buttons.
+## Gallery
 
+### Design Renders
 
-## Features
+<p align="center">
+  <img src="pics/fusion1.png" alt="Fusion 360 render of the DIY DJ controller" width="80%" />
+</p>
 
-- USB‑MIDI device using the `MIDIUSB` Arduino library
-- Two-deck control with play/pause, cue, loops, tempo faders, EQ, gain, filter, and master volume
-- Jog wheels with encoder inputs
-- Music selection encoder with push button
-- 16-button I²C expansion (PCF8575)
-- 74HC4067 analog multiplexer for potentiometers
-- Compatible with PlatformIO / Arduino framework
+<table>
+  <tr>
+    <td align="center"><img src="pics/fusion2.png" alt="Fusion 360 angled render" width="100%" /><br /><sub>Fusion 360 render</sub></td>
+    <td align="center"><img src="pics/fusion3.png" alt="Fusion 360 front-side render" width="100%" /><br /><sub>Fusion 360 render</sub></td>
+  </tr>
+</table>
 
-## Hardware Overview
+### Prototype Build Photos
 
-### Images
+<table>
+  <tr>
+    <td align="center"><img src="pics/overTable1.jpeg" alt="Top view of the finished controller prototype" width="100%" /><br /><sub>Controller top view</sub></td>
+    <td align="center"><img src="pics/overTable2.jpeg" alt="Additional top view of the controller prototype" width="100%" /><br /><sub>Controller top view</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="pics/soldered.jpeg" alt="Hand-soldered electronics assembly" width="100%" /><br /><sub>Electronics assembly</sub></td>
+    <td align="center"><img src="pics/soldered2.jpeg" alt="Additional hand-soldered electronics assembly view" width="100%" /><br /><sub>Electronics assembly</sub></td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2"><img src="pics/hands.jpeg" alt="Work-in-progress photo during assembly" width="65%" /><br /><sub>Work-in-progress assembly</sub></td>
+  </tr>
+</table>
 
-Here are some photos from the `pics` folder. They'll render automatically on GitHub as long as the files are committed.
+## Current Status
 
-![Fusion shot 2](pics/fusion2.png)
+This project is already past the idea stage: the controller has been designed, assembled, flashed, and used as a working prototype.
 
-![Fusion shot 3](pics/fusion3.png)
+Current focus areas:
 
-![Controller top view 2](pics/overTable2.jpeg)
+- Stabilize control mappings and firmware behavior
+- Improve documentation and repo structure
+- Prepare the electronics for a future PCB revision
+- Improve the mechanical design for future iterations
+- Explore broader software compatibility after the current setup is stabilized
 
-![Controller top view 1](pics/overTable1.jpeg)
+See [docs/ROADMAP.md](docs/ROADMAP.md) and [docs/STATUS.md](docs/STATUS.md) for the current plan and project snapshot.
 
-![Soldered board 1](pics/soldered.jpeg)
+## What The Controller Does
 
-![Soldered board 2](pics/soldered2.jpeg)
+- Sends USB-MIDI messages using the `MIDIUSB` library
+- Supports two-deck transport and loop control
+- Reads 15 analog controls through a `74HC4067` multiplexer
+- Reads 16 additional buttons through a `PCF8575` I2C GPIO expander
+- Uses three rotary encoders for jog wheels and music selection
+- Includes a Mixxx mapping package in `CDJ_firmware/mixx_Mapping/`
 
-![Hands working on board](pics/hands.jpeg)
+## Hardware Summary
 
+The current prototype is built around:
 
+- Sparkfun Pro Micro 16 MHz
+- PCF8575 I2C GPIO expander
+- 74HC4067 16-channel analog multiplexer
+- Rotary encoders for jog and browsing controls
+- Multiple buttons and potentiometers for deck and mixer functions
+- A custom 3D-printed enclosure designed in Fusion 360
 
-### Required Components
+For more detail, see:
 
-- Sparkfun Pro Micro 16MHz (ATmega328)
-- PCF8575 I²C GPIO expander
-- 74HC4067 16‑channel analog multiplexer
-- Rotary encoders (x3)
-- Potentiometers for gain, EQ, filter, tempo, master, etc.
-- Push buttons (≈20)
-- Misc wiring, breadboard/PCB
+- [docs/HARDWARE.md](docs/HARDWARE.md)
+- [docs/PINOUT.md](docs/PINOUT.md)
+- [CDJv2.f3z](CDJv2.f3z)
 
-### Wiring Details
+## Repository Structure
 
-For users building their own controller, here are the pin assignments used in the firmware:
+```text
+.
+|-- CDJ_firmware/          Firmware source, PlatformIO config, and Mixxx mapping
+|-- docs/                  Project documentation and planning
+|-- pics/                  Renders and build photos
+|-- reference circuits/    Circuit reference screenshots
+|-- kanban.md              Live task board
+|-- AGENTS.md              Agent workflow instructions
+`-- CDJv2.f3z              Fusion 360 model
+```
 
-- **PCF8575 I2C**  
-  - SDA → Arduino pin 2  
-  - SCL → Arduino pin 3  
-  - 16 buttons connected with hardware pull‑ups; press shorts to input.
+## Getting Started
 
-- **74HC4067 analog multiplexer**  
-  - Signal → A0  
-  - S0 → pin 15  
-  - S1 → pin 14  
-  - S2 → pin 16  
-  - S3 → pin 10  
-  - This IC reads 15 potentiometers (linear and rotary).
+### Firmware
 
-- **Rotary Encoders**  
-  - Music selection encoder → pins 4 and 5  
-  - Jog wheel 1 encoder → pins 8 & 9  
-  - Jog wheel 2 encoder → pins 6 & 7
-
-- **Top buttons (no hardware pull‑ups)**  
-  - Buttons connected to A3, A2, A1 (use `INPUT_PULLUP` in software)
-
-#### Button / Pot Mappings
-
-- Button 1: Deck 1 loop in  
-- Button 0: Deck 1 loop out  
-- Button 7: Deck 1 play/pause  
-- Button 6: Deck 1 cue  
-- Pot 14: Deck 1 tempo fader  
-- Pot 12: Deck 1 master  
-- Buttons 4, 5, 2, 3: Deck 1 function buttons  
-- *Jog wheel 2 is actually jog wheel 1*
-
-- Button A1: Load music to deck 1  
-- Button A2: Load music to deck 2  
-- Music encoder: track selector  
-- Button A3: music encoder push (navigate directories)
-
-- Pot 0: Deck 1 gain  
-- Pot 2: Deck 1 high  
-- Pot 4: Deck 1 mid  
-- Pot 6: Deck 1 low  
-- Pot 8: Deck 1 filter  
-- Pot 13: Mixer fader  
-
-- Pot 1: Deck 2 gain  
-- Pot 3: Deck 2 high  
-- Pot 5: Deck 2 mid  
-- Pot 7: Deck 2 low  
-- Pot 9: Deck 2 filter  
-- Pot 10: Deck 2 master  
-
-- Button 14: Deck 2 loop in  
-- Button 15: Deck 2 loop out  
-- Button 13: Deck 2 play/pause  
-- Button 12: Deck 2 cue  
-- Buttons 10, 11, 9, 8: Deck 2 function buttons  
-- Pot 11: Deck 2 tempo fader  
-- *Jog wheel 1 is actually jog wheel 2*
-
-## Building and Uploading
-
-1. Install [PlatformIO](https://platformio.org) in VS Code.
-2. Open the `CDJ_firmware` folder.
-3. Connect the Pro Micro board via USB and select the correct port.
-4. Use the PlatformIO toolbar or run:
+1. Install [PlatformIO](https://platformio.org/) in VS Code.
+2. Open the [CDJ_firmware](CDJ_firmware) folder.
+3. Connect the Sparkfun Pro Micro by USB.
+4. Build or upload:
 
    ```bash
+   pio run
    pio run --target upload
    ```
 
-5. After uploading, the board will enumerate as a USB MIDI device.
+### Mixxx Mapping
 
-## Usage
+Copy these files into your Mixxx mappings folder:
 
-- Plug the controller into your computer.
-- Launch your DJ software (e.g. Rekordbox, Serato, VirtualDJ, Mixxx).
-- Map the MIDI controls if necessary.
-- See the source code in `src/main.cpp` for details on MIDI messages and behavior.
+- `CDJ_firmware/mixx_Mapping/DJC-DIY.midi.xml`
+- `CDJ_firmware/mixx_Mapping/DJC-DIY-scripts.js`
 
-## Contributing
+Then connect the controller and enable the mapping in Mixxx.
 
-Contributions are welcome! Feel free to submit issues or pull requests with improvements, new mappings, wiring diagrams, or documentation.
+More details:
+
+- [docs/FIRMWARE.md](docs/FIRMWARE.md)
+- [docs/MIXXX.md](docs/MIXXX.md)
+
+## Documentation
+
+- [docs/README.md](docs/README.md) - documentation index
+- [docs/ROADMAP.md](docs/ROADMAP.md) - phased development plan
+- [docs/STATUS.md](docs/STATUS.md) - current project snapshot
+- [docs/CONTROL_MATRIX.md](docs/CONTROL_MATRIX.md) - control validation tracker
+- [kanban.md](kanban.md) - working task board
+
+## Known Limitations
+
+- Some button mappings still need fixing and verification
+- The jog wheel labeling is currently swapped in the documented/firmware behavior
+- The electronics are still based on hand wiring rather than a dedicated PCB
+- Software compatibility beyond the current Mixxx path is still a future goal
+
+## Development Direction
+
+The current roadmap is:
+
+1. Stabilize the existing prototype
+2. Improve documentation and repo clarity
+3. Prepare for PCB design
+4. Refine the mechanical design
+5. Refactor firmware for maintainability
+6. Explore broader software support
+
+## Inspiration
+
+This controller project was inspired by [@mandiclab](https://github.com/mandiclab) and the open DIY controller work in [mandiclab/djc-diy](https://github.com/mandiclab/djc-diy).
 
 ## License
 
-[Specify your license here, e.g. MIT]
-
-## Acknowledgments
-
-Based on original hardware designs and code by [Your Name]. Thanks to the open‑source community for inspiration and libraries.
-
----
-
-*This README will be updated with pictures, wiring diagrams, and usage examples soon.*
+License not defined yet in the repository.
