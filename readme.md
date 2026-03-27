@@ -2,17 +2,18 @@
 
 Custom homemade CDJ-style DJ controller with a 3D-printed enclosure, hand-built electronics, and USB-MIDI firmware for desktop DJ software.
 
-This repository documents the project as it evolves from a working prototype into a more professional hardware, firmware, and documentation package.
-
 This project was inspired by my friend [@mandiclab](https://github.com/mandiclab) and the [djc-diy](https://github.com/mandiclab/djc-diy) project.
+
+This repository contains the current working prototype, the design assets, the firmware, the Mixxx mapping, and the practical build information needed to continue improving the controller.
 
 ## Project Overview
 
 - **Type:** DIY USB-MIDI DJ controller
-- **Core MCU:** Sparkfun Pro Micro (ATmega328p @ 16 MHz)
+- **MCU:** Sparkfun Pro Micro (ATmega328p @ 16 MHz)
 - **Firmware stack:** PlatformIO + Arduino + `MIDIUSB`
-- **Current software path:** Mixxx mapping included in the repo
-- **Design assets:** Fusion 360 model, build photos, firmware, and project docs
+- **Current DJ software path:** Mixxx mapping included in the repo
+- **Mechanical design:** Fusion 360 model in `CDJv2.f3z`
+- **Current hardware state:** hand-wired prototype, working but still under refinement
 
 ## Gallery
 
@@ -47,25 +48,22 @@ This project was inspired by my friend [@mandiclab](https://github.com/mandiclab
 
 ## Current Status
 
-This project is already past the idea stage: the controller has been designed, assembled, flashed, and used as a working prototype.
+The controller has already been designed, assembled, flashed, and used successfully as a working prototype.
 
-Current focus areas:
+The project is now focused on:
 
-- Stabilize control mappings and firmware behavior
-- Improve documentation and repo structure
-- Prepare the electronics for a future PCB revision
-- Improve the mechanical design for future iterations
-- Explore broader software compatibility after the current setup is stabilized
-
-See [docs/ROADMAP.md](docs/ROADMAP.md) and [docs/STATUS.md](docs/STATUS.md) for the current plan and project snapshot.
+- fixing and refining control mappings
+- improving firmware clarity and maintainability
+- preparing for a future PCB version
+- improving the mechanical design for later revisions
 
 ## What The Controller Does
 
 - Sends USB-MIDI messages using the `MIDIUSB` library
 - Supports two-deck transport and loop control
+- Reads 16 button inputs through a `PCF8575` I2C expander
 - Reads 15 analog controls through a `74HC4067` multiplexer
-- Reads 16 additional buttons through a `PCF8575` I2C GPIO expander
-- Uses three rotary encoders for jog wheels and music selection
+- Uses three rotary encoders for two jog wheels and music browsing
 - Includes a Mixxx mapping package in `CDJ_firmware/mixx_Mapping/`
 
 ## Hardware Summary
@@ -75,26 +73,137 @@ The current prototype is built around:
 - Sparkfun Pro Micro 16 MHz
 - PCF8575 I2C GPIO expander
 - 74HC4067 16-channel analog multiplexer
-- Rotary encoders for jog and browsing controls
-- Multiple buttons and potentiometers for deck and mixer functions
+- Three rotary encoders
+- Multiple buttons and potentiometers for deck and mixer controls
 - A custom 3D-printed enclosure designed in Fusion 360
 
-For more detail, see:
+### Wiring Summary
 
-- [docs/HARDWARE.md](docs/HARDWARE.md)
-- [docs/PINOUT.md](docs/PINOUT.md)
-- [CDJv2.f3z](CDJv2.f3z)
+#### I2C
+
+- SDA -> Arduino pin 2
+- SCL -> Arduino pin 3
+- PCF8575 address in current firmware: `0x24`
+
+#### 74HC4067 Multiplexer
+
+- Signal -> `A0`
+- `S0` -> pin 15
+- `S1` -> pin 14
+- `S2` -> pin 16
+- `S3` -> pin 10
+
+#### Rotary Encoders
+
+- Music selector -> pins 4 and 5
+- Jog wheel 1 -> pins 8 and 9
+- Jog wheel 2 -> pins 6 and 7
+
+#### Direct Buttons
+
+- `A3` -> Note 76
+- `A2` -> Note 77
+- `A1` -> Note 78
+
+### Current Input Map
+
+#### PCF8575 Buttons
+
+Deck 1:
+
+- Button 0 -> Loop Out
+- Button 1 -> Loop In
+- Button 2 -> Hotcue 3
+- Button 3 -> Hotcue 4
+- Button 4 -> Hotcue 1
+- Button 5 -> Hotcue 2
+- Button 6 -> Cue
+- Button 7 -> Play/Pause
+
+Deck 2:
+
+- Button 8 -> Hotcue 4
+- Button 9 -> Hotcue 3
+- Button 10 -> Hotcue 1
+- Button 11 -> Hotcue 2
+- Button 12 -> Cue
+- Button 13 -> Play/Pause
+- Button 14 -> Loop In
+- Button 15 -> Loop Out
+
+#### Potentiometers
+
+- Pot 0 -> Deck 1 Gain
+- Pot 1 -> Deck 2 Gain
+- Pot 2 -> Deck 1 High EQ
+- Pot 3 -> Deck 2 High EQ
+- Pot 4 -> Deck 1 Mid EQ
+- Pot 5 -> Deck 2 Mid EQ
+- Pot 6 -> Deck 1 Low EQ
+- Pot 7 -> Deck 2 Low EQ
+- Pot 8 -> Deck 1 Filter
+- Pot 9 -> Deck 2 Filter
+- Pot 10 -> Deck 2 Volume
+- Pot 11 -> Deck 2 Tempo
+- Pot 12 -> Deck 1 Volume
+- Pot 13 -> Crossfader
+- Pot 14 -> Deck 1 Tempo
+
+#### Browser Controls
+
+- Music encoder -> playlist scroll
+- `A3` / Note 76 -> Load selected track into Deck 1
+- `A2` / Note 77 -> Load selected track into Deck 2
+- `A1` / Note 78 -> Enter folder / `GoToItem`
+
+## Firmware
+
+The firmware lives in `CDJ_firmware/src/main.cpp`.
+
+### Current Behavior
+
+- Polls the PCF8575 for 16 button inputs
+- Polls the 74HC4067 for 15 analog controls
+- Reads direct button inputs on `A1`, `A2`, and `A3`
+- Reads three rotary encoders
+- Sends USB-MIDI note and CC messages through `MIDIUSB`
+
+### Build Configuration
+
+`CDJ_firmware/platformio.ini` currently targets:
+
+```ini
+[env:sparkfun_promicro16]
+platform = atmelavr
+board = sparkfun_promicro16
+framework = arduino
+lib_deps =
+  arduino-libraries/MIDIUSB @ ^1.0.5
+```
+
+## Mixxx Mapping
+
+The Mixxx mapping files are:
+
+- `CDJ_firmware/mixx_Mapping/DJC-DIY.midi.xml`
+- `CDJ_firmware/mixx_Mapping/DJC-DIY-scripts.js`
+
+### Important Notes
+
+- The current jog wheel assignment is swapped between physical control and deck mapping.
+- The top direct buttons in firmware map as:
+  - `A3` -> Deck 1 load
+  - `A2` -> Deck 2 load
+  - `A1` -> Enter folder
+- The XML has been cleaned so button actions now trigger on `note on` only, instead of being duplicated on `note off`.
 
 ## Repository Structure
 
 ```text
 .
 |-- CDJ_firmware/          Firmware source, PlatformIO config, and Mixxx mapping
-|-- docs/                  Project documentation and planning
-|-- pics/                  Renders and build photos
+|-- pics/                  Main renders and build photos
 |-- reference circuits/    Circuit reference screenshots
-|-- kanban.md              Live task board
-|-- AGENTS.md              Agent workflow instructions
 `-- CDJv2.f3z              Fusion 360 model
 ```
 
@@ -103,7 +212,7 @@ For more detail, see:
 ### Firmware
 
 1. Install [PlatformIO](https://platformio.org/) in VS Code.
-2. Open the [CDJ_firmware](CDJ_firmware) folder.
+2. Open the `CDJ_firmware` folder.
 3. Connect the Sparkfun Pro Micro by USB.
 4. Build or upload:
 
@@ -112,7 +221,7 @@ For more detail, see:
    pio run --target upload
    ```
 
-### Mixxx Mapping
+### Mixxx
 
 Copy these files into your Mixxx mappings folder:
 
@@ -121,40 +230,20 @@ Copy these files into your Mixxx mappings folder:
 
 Then connect the controller and enable the mapping in Mixxx.
 
-More details:
+## Known Issues
 
-- [docs/FIRMWARE.md](docs/FIRMWARE.md)
-- [docs/MIXXX.md](docs/MIXXX.md)
+- Some controls still need verification on the physical controller
+- The jog wheel deck assignment is currently swapped
+- The hardware is still hand-wired rather than PCB-based
+- Software support beyond Mixxx is still future work
 
-## Documentation
+## Next Development Goals
 
-- [docs/README.md](docs/README.md) - documentation index
-- [docs/ROADMAP.md](docs/ROADMAP.md) - phased development plan
-- [docs/STATUS.md](docs/STATUS.md) - current project snapshot
-- [docs/CONTROL_MATRIX.md](docs/CONTROL_MATRIX.md) - control validation tracker
-- [kanban.md](kanban.md) - working task board
-
-## Known Limitations
-
-- Some button mappings still need fixing and verification
-- The jog wheel labeling is currently swapped in the documented/firmware behavior
-- The electronics are still based on hand wiring rather than a dedicated PCB
-- Software compatibility beyond the current Mixxx path is still a future goal
-
-## Development Direction
-
-The current roadmap is:
-
-1. Stabilize the existing prototype
-2. Improve documentation and repo clarity
-3. Prepare for PCB design
-4. Refine the mechanical design
-5. Refactor firmware for maintainability
-6. Explore broader software support
-
-## Inspiration
-
-This controller project was inspired by [@mandiclab](https://github.com/mandiclab) and the open DIY controller work in [mandiclab/djc-diy](https://github.com/mandiclab/djc-diy).
+1. Verify the current controller behavior on hardware
+2. Fix the remaining mapping mismatches
+3. Improve firmware structure and naming clarity
+4. Prepare the electronics for a PCB revision
+5. Refine the enclosure for the next mechanical iteration
 
 ## License
 

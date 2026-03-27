@@ -1,2 +1,5 @@
 /videos
 /oldPics
+/output
+/tmp
+.DS_Store

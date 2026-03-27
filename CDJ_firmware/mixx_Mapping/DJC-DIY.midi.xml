@@ -32,30 +32,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>loop_in</key>
-                <status>0x80</status>
-                <midino>0x3D</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 0: Deck 1 Loop Out (Note 60) -->
             <control>
                 <group>[Channel1]</group>
                 <key>loop_out</key>
                 <status>0x90</status>
-                <midino>0x3C</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>loop_out</key>
-                <status>0x80</status>
                 <midino>0x3C</midino>
                 <options>
                     <normal/>
@@ -72,30 +54,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>play</key>
-                <status>0x80</status>
-                <midino>0x43</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 6: Deck 1 Cue (Note 66) -->
             <control>
                 <group>[Channel1]</group>
                 <key>cue_default</key>
                 <status>0x90</status>
-                <midino>0x42</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>cue_default</key>
-                <status>0x80</status>
                 <midino>0x42</midino>
                 <options>
                     <normal/>
@@ -112,30 +76,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>hotcue_1_activate</key>
-                <status>0x80</status>
-                <midino>0x40</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 5: Deck 1 Function Button 2 (Note 65) -->
             <control>
                 <group>[Channel1]</group>
                 <key>hotcue_2_activate</key>
                 <status>0x90</status>
-                <midino>0x41</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>hotcue_2_activate</key>
-                <status>0x80</status>
                 <midino>0x41</midino>
                 <options>
                     <normal/>
@@ -152,30 +98,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>hotcue_3_activate</key>
-                <status>0x80</status>
-                <midino>0x3E</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 3: Deck 1 Function Button 4 (Note 63) -->
             <control>
                 <group>[Channel1]</group>
                 <key>hotcue_4_activate</key>
                 <status>0x90</status>
-                <midino>0x3F</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>hotcue_4_activate</key>
-                <status>0x80</status>
                 <midino>0x3F</midino>
                 <options>
                     <normal/>
@@ -205,30 +133,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>loop_in</key>
-                <status>0x80</status>
-                <midino>0x4A</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 15: Deck 2 Loop Out (Note 75) -->
             <control>
                 <group>[Channel2]</group>
                 <key>loop_out</key>
                 <status>0x90</status>
-                <midino>0x4B</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>loop_out</key>
-                <status>0x80</status>
                 <midino>0x4B</midino>
                 <options>
                     <normal/>
@@ -245,30 +155,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>play</key>
-                <status>0x80</status>
-                <midino>0x49</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 12: Deck 2 Cue (Note 72) -->
             <control>
                 <group>[Channel2]</group>
                 <key>cue_default</key>
                 <status>0x90</status>
-                <midino>0x48</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>cue_default</key>
-                <status>0x80</status>
                 <midino>0x48</midino>
                 <options>
                     <normal/>
@@ -285,30 +177,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>hotcue_1_activate</key>
-                <status>0x80</status>
-                <midino>0x46</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 11: Deck 2 Function Button 2 (Note 71) -->
             <control>
                 <group>[Channel2]</group>
                 <key>hotcue_2_activate</key>
                 <status>0x90</status>
-                <midino>0x47</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>hotcue_2_activate</key>
-                <status>0x80</status>
                 <midino>0x47</midino>
                 <options>
                     <normal/>
@@ -325,30 +199,12 @@
                     <normal/>
                 </options>
             </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>hotcue_3_activate</key>
-                <status>0x80</status>
-                <midino>0x45</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
 
             <!-- Button 8: Deck 2 Function Button 4 (Note 68) -->
             <control>
                 <group>[Channel2]</group>
                 <key>hotcue_4_activate</key>
                 <status>0x90</status>
-                <midino>0x44</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel2]</group>
-                <key>hotcue_4_activate</key>
-                <status>0x80</status>
                 <midino>0x44</midino>
                 <options>
                     <normal/>
@@ -535,52 +391,34 @@
                 </options>
             </control>
 
-            <!-- Button A1: Load Music to Deck 1 (Note 76) -->
+            <!-- Physical button for Deck 1 load -->
             <control>
                 <group>[Channel1]</group>
-                <key>LoadSelectedIntoFirstDeck</key>
+                <key>LoadSelectedTrack</key>
                 <status>0x90</status>
-                <midino>0x4C</midino>
-                <options>
-                    <normal/>
-                </options>
-            </control>
-            <control>
-                <group>[Channel1]</group>
-                <key>LoadSelectedIntoFirstDeck</key>
-                <status>0x80</status>
-                <midino>0x4C</midino>
+                <midino>0x4E</midino>
                 <options>
                     <normal/>
                 </options>
             </control>
 
-            <!-- Button A2: Load Music to Deck 2 (Note 77) -->
+            <!-- Button A2: Load Music to Deck 2 (Note 77 from firmware) -->
             <control>
                 <group>[Channel2]</group>
-                <key>DJCDIY.loadDeck2</key>
+                <key>LoadSelectedTrack</key>
                 <status>0x90</status>
                 <midino>0x4D</midino>
                 <options>
-                    <script-binding/>
-                </options>
-            </control>
-
-            <!-- Button A3: Music Encoder Selection Button - Enter Folder (Note 78) -->
-            <control>
-                <group>[Library]</group>
-                <key>GoToItem</key>
-                <status>0x90</status>
-                <midino>0x4E</midino>
-                <options>
                     <normal/>
                 </options>
             </control>
+
+            <!-- Physical button for enter/expand folder -->
             <control>
-                <group>[Library]</group>
-                <key>GoToItem</key>
-                <status>0x80</status>
-                <midino>0x4E</midino>
+                <group>[Playlist]</group>
+                <key>ToggleSelectedSidebarItem</key>
+                <status>0x90</status>
+                <midino>0x4C</midino>
                 <options>
                     <normal/>
                 </options>
