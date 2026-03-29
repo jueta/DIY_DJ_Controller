@@ -1,17 +1,17 @@
 # DIY DJ Controller
 
-Custom homemade CDJ-style DJ controller with a 3D-printed enclosure, hand-built electronics, and USB-MIDI firmware for desktop DJ software.
+Custom homemade CDJ-style DJ controller with a 3D-printed enclosure, hand-built electronics, and USB-MIDI firmware.
 
 This project was inspired by my friend [@mandiclab](https://github.com/mandiclab) and the [djc-diy](https://github.com/mandiclab/djc-diy) project.
 
-This repository contains the current working prototype, the design assets, the firmware, the Mixxx mapping, and the practical build information needed to continue improving the controller.
+This repository currently documents the stable Mixxx-focused prototype: the design assets, the firmware, the Mixxx mapping, and the practical build information needed to continue improving the controller. Rekordbox support is being treated as a next-version hardware goal rather than a target for this revision.
 
 ## Project Overview
 
 - **Type:** DIY USB-MIDI DJ controller
-- **MCU:** Sparkfun Pro Micro (ATmega328p @ 16 MHz)
+- **MCU:** Sparkfun Pro Micro / ATmega32U4 @ 16 MHz
 - **Firmware stack:** PlatformIO + Arduino + `MIDIUSB`
-- **Current DJ software path:** Mixxx mapping included in the repo
+- **Current DJ software path:** stable Mixxx mapping included in the repo
 - **Mechanical design:** Fusion 360 model in `CDJv2.f3z`
 - **Current hardware state:** hand-wired prototype, working but still under refinement
 
@@ -50,12 +50,14 @@ This repository contains the current working prototype, the design assets, the f
 
 The controller has already been designed, assembled, flashed, and used successfully as a working prototype.
 
-The project is now focused on:
+The current direction for this revision is:
 
-- fixing and refining control mappings
-- improving firmware clarity and maintainability
-- preparing for a future PCB version
-- improving the mechanical design for later revisions
+- keep the controller stable and usable with Mixxx
+- preserve the working firmware and mapping path
+- improve documentation and build clarity
+- capture the hardware requirements for a more professional next version
+
+Rekordbox was tested during development and basic controls could be made to respond, but the jog wheels never became usable on this hardware revision. Because the jog behavior is essential for real DJ use, this version of the project is being kept as the stable Mixxx build instead.
 
 ## What The Controller Does
 
@@ -64,7 +66,7 @@ The project is now focused on:
 - Reads 16 button inputs through a `PCF8575` I2C expander
 - Reads 15 analog controls through a `74HC4067` multiplexer
 - Uses three rotary encoders for two jog wheels and music browsing
-- Includes a Mixxx mapping package in `CDJ_firmware/mixx_Mapping/`
+- Includes a Mixxx mapping package in `controllers/mixx_Mapping/`
 
 ## Hardware Summary
 
@@ -185,8 +187,8 @@ lib_deps =
 
 The Mixxx mapping files are:
 
-- `CDJ_firmware/mixx_Mapping/DJC-DIY.midi.xml`
-- `CDJ_firmware/mixx_Mapping/DJC-DIY-scripts.js`
+- `controllers/mixx_Mapping/DJC-DIY.midi.xml`
+- `controllers/mixx_Mapping/DJC-DIY-scripts.js`
 
 ### Important Notes
 
@@ -201,7 +203,8 @@ The Mixxx mapping files are:
 
 ```text
 .
-|-- CDJ_firmware/          Firmware source, PlatformIO config, and Mixxx mapping
+|-- CDJ_firmware/          Firmware source and PlatformIO config
+|-- controllers/           Mixxx mapping and Rekordbox experiments/reference
 |-- pics/                  Main renders and build photos
 |-- reference circuits/    Circuit reference screenshots
 `-- CDJv2.f3z              Fusion 360 model
@@ -225,8 +228,8 @@ The Mixxx mapping files are:
 
 Copy these files into your Mixxx mappings folder:
 
-- `CDJ_firmware/mixx_Mapping/DJC-DIY.midi.xml`
-- `CDJ_firmware/mixx_Mapping/DJC-DIY-scripts.js`
+- `controllers/mixx_Mapping/DJC-DIY.midi.xml`
+- `controllers/mixx_Mapping/DJC-DIY-scripts.js`
 
 Then connect the controller and enable the mapping in Mixxx.
 
@@ -235,15 +238,32 @@ Then connect the controller and enable the mapping in Mixxx.
 - Some controls still need verification on the physical controller
 - The jog wheel deck assignment is currently swapped
 - The hardware is still hand-wired rather than PCB-based
-- Software support beyond Mixxx is still future work
+- Rekordbox is not a supported target for this hardware revision
+- Rekordbox tests showed partial success for buttons and general controls, but not for reliable jog-wheel use
+
+## Version 2 Target Requirements
+
+The next version of this project should be treated as a broader hardware redesign rather than a small firmware update.
+
+Target requirements for that revision:
+
+- Dedicated headphone connector and proper cue/master monitoring path
+- A controller platform that can support the hardware and USB behavior needed for Rekordbox-style integration
+- A real PCB design replacing the current hand-wired prototype
+- A cleaner mechanical revision for repeatable assembly
+- Better documentation, BOM, and assembly/testing steps for a more sellable project
+
+### Rekordbox Hardware Note
+
+The current ATmega32U4 MIDI-only controller architecture is a good fit for Mixxx, but it did not prove sufficient for reliable Rekordbox controller emulation during testing. Basic Rekordbox interaction could be reached, but the jog wheels were never made usable enough for a real workflow. For the next version, Rekordbox compatibility should be considered a hardware-platform decision from the start.
 
 ## Next Development Goals
 
-1. Verify the current controller behavior on hardware
-2. Fix the remaining mapping mismatches
-3. Improve firmware structure and naming clarity
-4. Prepare the electronics for a PCB revision
-5. Refine the enclosure for the next mechanical iteration
+1. Keep the current controller stable in Mixxx
+2. Verify and document the working hardware behavior
+3. Prepare requirements for a PCB-based revision
+4. Define the audio and headphone path for the next version
+5. Re-evaluate the controller brain and hardware architecture for future Rekordbox support
 
 ## License
 

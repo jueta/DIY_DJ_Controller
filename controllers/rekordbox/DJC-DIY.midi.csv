@@ -30,5 +30,5 @@ PAD3_HotCue,PAD3.HotCue.Call,Pad,,903E,9045,,,,903E,9045,,,,Fast,HOT CUE 3
 PAD4_HotCue,PAD4.HotCue.Call,Pad,,903F,9044,,,,903F,9044,,,,Fast,HOT CUE 4
 ,,,,,,,,,,,,,,
 # Scratch,,,,,,,,,,,,,,
-WheelPitchBend,WheelPitchBend,JogRotate,B01B,0,1,,,,,,,,RO,Pitch Bend
-WheelPitchBend,WheelPitchBend,JogRotate,B01A,1,0,,,,,,,,RO,Pitch Bend
+JogPitchBend,JogPitchBend,JogRotate,B023,0,1,,,,,,,,RO,Pitch Bend
+WheelPitchBend,WheelPitchBend,JogRotate,B021,0,1,,,,,,,,RO,Pitch Bend
