@@ -1,0 +1,34 @@
+@file,1,SparkFun Pro Micro
+#name,function,type,input,deck1,deck2,deck3,deck4,output,deck1,deck2,deck3,deck4,option,comment
+,,,,,,,,,,,,,,
+# Browser,,,,,,,,,,,,,,
+Browse,Browse,Rotary,B019,,,,,,,,,,,Browse(Track/Folder Select)
+Forward,Browse+Press,Button,904C,,,,,,,,,,,Library Forward (Folder Open)
+Load,Load,Button,,904E,904D,,,,,,,,,Load to Deck / Instant Double (double click)
+,,,,,,,,,,,,,,
+# Deck,,,,,,,,,,,,,,
+PlayPause,PlayPause,Button,,9043,9049,,,,9043,9049,,,,Fast;Priority=50,Play/Pause
+Cue,Cue,Button,,9042,9048,,,,9042,9048,,,,Fast;Priority=50,Cue Set/Play Cue Back
+LoopIn,LoopIn,Button,,903D,904A,,,,903D,904A,,,,Fast,Loop in/Loop in adjust
+LoopOut,LoopOut,Button,,903C,904B,,,,903C,904B,,,,Fast,Loop out/Loop out adjust
+,,,,,,,,,,,,,,
+# Mixer,,,,,,,,,,,,,,
+TempoSlider,TempoSlider,KnobSlider,,B018,B015,,,,,,,,Fast,Tempo Control
+CrossFader,CrossFader,KnobSlider,B017,,,,,,,,,,,Fast,Crossfader
+ChannelFader,ChannelFader,KnobSlider,,B016,B014,,,,,,,,,CH Fader
+Gain,Gain,KnobSlider,,B00A,B00B,,,,,,,,Fast,Gain
+EQHigh,EQHigh,KnobSlider,,B00C,B00D,,,,,,,,Fast,EQ High
+EQMid,EQMid,KnobSlider,,B00E,B00F,,,,,,,,Fast,EQ Mid
+EQLow,EQLow,KnobSlider,,B010,B011,,,,,,,,Fast,EQ Low
+CFXParameterCH1,CFXParameterCH1,KnobSlider,B012,,,,,,,,,,,Fast,CH1 CFX Depth
+CFXParameterCH2,CFXParameterCH2,KnobSlider,B013,,,,,,,,,,,Fast,CH2 CFX Depth
+,,,,,,,,,,,,,,
+# Performance,,,,,,,,,,,,,,
+PAD1_HotCue,PAD1.HotCue.Call,Pad,,9040,9046,,,,9040,9046,,,,Fast,HOT CUE 1
+PAD2_HotCue,PAD2.HotCue.Call,Pad,,9041,9047,,,,9041,9047,,,,Fast,HOT CUE 2
+PAD3_HotCue,PAD3.HotCue.Call,Pad,,903E,9045,,,,903E,9045,,,,Fast,HOT CUE 3
+PAD4_HotCue,PAD4.HotCue.Call,Pad,,903F,9044,,,,903F,9044,,,,Fast,HOT CUE 4
+,,,,,,,,,,,,,,
+# Scratch,,,,,,,,,,,,,,
+WheelPitchBend,WheelPitchBend,JogRotate,B01B,0,1,,,,,,,,RO,Pitch Bend
+WheelPitchBend,WheelPitchBend,JogRotate,B01A,1,0,,,,,,,,RO,Pitch Bend

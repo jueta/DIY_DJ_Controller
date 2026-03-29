@@ -1,0 +1,38 @@
+Section,Physical Control,MIDI Type,MIDI Number,Recommended Rekordbox Target,Deck,Notes
+Transport,Button 7,Note,67,Play/Pause,1,Deck 1 play
+Transport,Button 6,Note,66,Cue,1,Deck 1 cue
+Loops,Button 1,Note,61,Loop In,1,Deck 1 loop in
+Loops,Button 0,Note,60,Loop Out,1,Deck 1 loop out
+Performance,Button 4,Note,64,Hot Cue 1,1,Deck 1 function button
+Performance,Button 5,Note,65,Hot Cue 2,1,Deck 1 function button
+Performance,Button 2,Note,62,Hot Cue 3,1,Deck 1 function button
+Performance,Button 3,Note,63,Hot Cue 4,1,Deck 1 function button
+Transport,Button 13,Note,73,Play/Pause,2,Deck 2 play
+Transport,Button 12,Note,72,Cue,2,Deck 2 cue
+Loops,Button 14,Note,74,Loop In,2,Deck 2 loop in
+Loops,Button 15,Note,75,Loop Out,2,Deck 2 loop out
+Performance,Button 10,Note,70,Hot Cue 1,2,Deck 2 function button
+Performance,Button 11,Note,71,Hot Cue 2,2,Deck 2 function button
+Performance,Button 9,Note,69,Hot Cue 3,2,Deck 2 function button
+Performance,Button 8,Note,68,Hot Cue 4,2,Deck 2 function button
+Mixer,Pot 0,CC,10,Trim / Gain,1,Deck 1 gain
+Mixer,Pot 1,CC,11,Trim / Gain,2,Deck 2 gain
+Mixer,Pot 2,CC,12,EQ High,1,Deck 1 high EQ
+Mixer,Pot 3,CC,13,EQ High,2,Deck 2 high EQ
+Mixer,Pot 4,CC,14,EQ Mid,1,Deck 1 mid EQ
+Mixer,Pot 5,CC,15,EQ Mid,2,Deck 2 mid EQ
+Mixer,Pot 6,CC,16,EQ Low,1,Deck 1 low EQ
+Mixer,Pot 7,CC,17,EQ Low,2,Deck 2 low EQ
+Mixer,Pot 8,CC,18,Filter,1,Deck 1 filter
+Mixer,Pot 9,CC,19,Filter,2,Deck 2 filter
+Mixer,Pot 12,CC,22,Channel Fader / Volume,1,Deck 1 volume
+Mixer,Pot 10,CC,20,Channel Fader / Volume,2,Deck 2 volume
+Mixer,Pot 14,CC,24,Tempo Slider,1,Deck 1 tempo
+Mixer,Pot 11,CC,21,Tempo Slider,2,Deck 2 tempo
+Mixer,Pot 13,CC,23,Crossfader,Master,Master crossfader
+Browser,Music Encoder,CC,25,Library Browse,Global,Relative encoder for track selection
+Browser,Top Button Load Deck 1,Note,78,Load Selected Track,1,Physical button currently assigned to Deck 1 load after mapping fix
+Browser,Top Button Load Deck 2,Note,77,Load Selected Track,2,Physical button currently assigned to Deck 2 load
+Browser,Top Button Enter Folder,Note,76,Enter / Expand Folder,Global,Physical button currently assigned to folder enter after mapping fix
+Jog,Jog Wheel 1,CC,26,Jog / Scratch,2,Current controller logic maps this physical jog to Deck 2
+Jog,Jog Wheel 2,CC,27,Jog / Scratch,1,Current controller logic maps this physical jog to Deck 1

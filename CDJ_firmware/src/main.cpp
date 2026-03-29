@@ -22,6 +22,29 @@ const byte potCCs[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 2
 int potValues[15] = {0};
 const int potThreshold = 2;
 
+bool shouldInvertPot(int channel)
+{
+  switch (channel)
+  {
+  case 0:  // Deck 1 Gain
+  case 1:  // Deck 2 Gain
+  case 2:  // Deck 1 High EQ
+  case 3:  // Deck 2 High EQ
+  case 4:  // Deck 1 Mid EQ
+  case 5:  // Deck 2 Mid EQ
+  case 6:  // Deck 1 Low EQ
+  case 7:  // Deck 2 Low EQ
+  case 8:  // Deck 1 Filter
+  case 9:  // Deck 2 Filter
+  case 11: // Deck 2 Tempo
+  case 13: // Crossfader
+  case 14: // Deck 1 Tempo
+    return true;
+  default:
+    return false;
+  }
+}
+
 // ---------- ROTARY ENCODERS ----------
 // Music selection encoder (top middle)
 const int encoderA_Music = 4;
@@ -228,6 +251,11 @@ void handlePots()
     // Read the analog value
     int raw = analogRead(MUX_INPUT);
     int mapped = raw / 8;
+
+    if (shouldInvertPot(i))
+    {
+      mapped = 127 - mapped;
+    }
 
     if (abs(mapped - potValues[i]) >= potThreshold)
     {
