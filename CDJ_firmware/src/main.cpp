@@ -22,29 +22,6 @@ const byte potCCs[] = {10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 2
 int potValues[15] = {0};
 const int potThreshold = 2;
 
-bool shouldInvertPot(int channel)
-{
-  switch (channel)
-  {
-  case 0:  // Deck 1 Gain
-  case 1:  // Deck 2 Gain
-  case 2:  // Deck 1 High EQ
-  case 3:  // Deck 2 High EQ
-  case 4:  // Deck 1 Mid EQ
-  case 5:  // Deck 2 Mid EQ
-  case 6:  // Deck 1 Low EQ
-  case 7:  // Deck 2 Low EQ
-  case 8:  // Deck 1 Filter
-  case 9:  // Deck 2 Filter
-  case 11: // Deck 2 Tempo
-  case 13: // Crossfader
-  case 14: // Deck 1 Tempo
-    return true;
-  default:
-    return false;
-  }
-}
-
 // ---------- ROTARY ENCODERS ----------
 // Music selection encoder (top middle)
 const int encoderA_Music = 4;
@@ -252,11 +229,6 @@ void handlePots()
     int raw = analogRead(MUX_INPUT);
     int mapped = raw / 8;
 
-    if (shouldInvertPot(i))
-    {
-      mapped = 127 - mapped;
-    }
-
     if (abs(mapped - potValues[i]) >= potThreshold)
     {
       // Serial.print("Pot ");
@@ -309,12 +281,14 @@ void handleEncoders()
       // Serial.println("Music Encoder - CCW");
     }
 
-    sendCC(encoderCC_Music, directionValue);
+    midiEventPacket_t cc = {0x0B, 0xB0, encoderCC_Music, directionValue};
+    MidiUSB.sendMIDI(cc);
+    MidiUSB.flush();
 
     encoderLastState_Music = currentState_Music;
   }
 
-  // ---------- JOG WHEEL ENCODER 1 (pins 8, 9 / Mixxx Deck 2) ----------
+  // ---------- JOG WHEEL ENCODER 1 (pins 8, 9) ----------
   int currentState_Jog1 = digitalRead(encoderA_Jog1);
   if (currentState_Jog1 != encoderLastState_Jog1)
   {
@@ -332,12 +306,14 @@ void handleEncoders()
       // Serial.println("Jog Wheel 1 - CCW");
     }
 
-    sendCC(encoderCC_Jog1, directionValue);
+    midiEventPacket_t cc = {0x0B, 0xB0, encoderCC_Jog1, directionValue};
+    MidiUSB.sendMIDI(cc);
+    MidiUSB.flush();
 
     encoderLastState_Jog1 = currentState_Jog1;
   }
 
-  // ---------- JOG WHEEL ENCODER 2 (pins 6, 7 / Mixxx Deck 1) ----------
+  // ---------- JOG WHEEL ENCODER 2 (pins 6, 7) ----------
   int currentState_Jog2 = digitalRead(encoderA_Jog2);
   if (currentState_Jog2 != encoderLastState_Jog2)
   {
@@ -355,7 +331,9 @@ void handleEncoders()
       // Serial.println("Jog Wheel 2 - CCW");
     }
 
-    sendCC(encoderCC_Jog2, directionValue);
+    midiEventPacket_t cc = {0x0B, 0xB0, encoderCC_Jog2, directionValue};
+    MidiUSB.sendMIDI(cc);
+    MidiUSB.flush();
 
     encoderLastState_Jog2 = currentState_Jog2;
   }
