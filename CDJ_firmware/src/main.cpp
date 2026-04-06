@@ -263,29 +263,41 @@ void sendCC(byte cc, byte val)
 
 void handleEncoders()
 {
+  static unsigned long lastMusicEncoderEventTime = 0;
+  const unsigned long musicEncoderIntervalMs = 8;
+
   // ---------- MUSIC SELECTION ENCODER (pins 4, 5) ----------
   int currentState_Music = digitalRead(encoderA_Music);
   if (currentState_Music != encoderLastState_Music)
   {
+    unsigned long now = millis();
     int bState = digitalRead(encoderB_Music);
-    byte directionValue;
-
-    if (currentState_Music == bState)
-    {
-      directionValue = 0x41;
-      // Serial.println("Music Encoder - CW");
-    }
-    else
-    {
-      directionValue = 0x3F;
-      // Serial.println("Music Encoder - CCW");
-    }
-
-    midiEventPacket_t cc = {0x0B, 0xB0, encoderCC_Music, directionValue};
-    MidiUSB.sendMIDI(cc);
-    MidiUSB.flush();
-
     encoderLastState_Music = currentState_Music;
+
+    if (now - lastMusicEncoderEventTime >= musicEncoderIntervalMs)
+    {
+      // Only emit on one edge of phase A to avoid double-triggering per detent.
+      if (currentState_Music == LOW)
+      {
+        byte directionValue;
+
+        if (currentState_Music == bState)
+        {
+          directionValue = 0x41;
+          // Serial.println("Music Encoder - CW");
+        }
+        else
+        {
+          directionValue = 0x3F;
+          // Serial.println("Music Encoder - CCW");
+        }
+
+        midiEventPacket_t cc = {0x0B, 0xB0, encoderCC_Music, directionValue};
+        MidiUSB.sendMIDI(cc);
+        MidiUSB.flush();
+        lastMusicEncoderEventTime = now;
+      }
+    }
   }
 
   // ---------- JOG WHEEL ENCODER 1 (pins 8, 9) ----------
