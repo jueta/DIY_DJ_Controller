@@ -1,176 +1,143 @@
 # DIY DJ Controller
 
-Custom homemade CDJ-style DJ controller with a 3D-printed enclosure, hand-built electronics, and USB-MIDI firmware.
+Homemade CDJ-style DJ controller with a 3D-printed enclosure, hand-built electronics, and custom firmware.
 
 This project was inspired by my friend [@mandiclab](https://github.com/mandiclab) and the [djc-diy](https://github.com/mandiclab/djc-diy) project.
 
-This repository currently documents the stable Mixxx-focused prototype: the design assets, the firmware, the Mixxx mapping, and the practical build information needed to continue improving the controller. Rekordbox support is being treated as a next-version hardware goal rather than a target for this revision.
+This repository documents:
+- the current stable Mixxx prototype
+- the firmware and Mixxx mapping that make it work
+- the next hardware direction for a cleaner v2 build
 
-## Project Overview
+![Fusion 360 render](pics/fusion1.png)
 
-- **Type:** DIY USB-MIDI DJ controller
-- **MCU:** Sparkfun Pro Micro / ATmega32U4 @ 16 MHz
-- **Firmware stack:** PlatformIO + Arduino + `MIDIUSB`
-- **Current DJ software path:** stable Mixxx mapping included in the repo
-- **Mechanical design:** Fusion 360 model in `CDJv2.f3z`
-- **Current hardware state:** hand-wired prototype, working but still under refinement
+![Prototype build](pics/overTable1.jpeg)
 
-## Gallery
+## Status
 
-### Design Renders
+- `v1` is the stable Mixxx-focused version
+- the controller has been built, flashed, and used successfully as a working prototype
+- Rekordbox was tested, but the jog wheels never became usable enough for a real workflow
+- because of that, Rekordbox is not a supported target for this hardware revision
 
-<p align="center">
-  <img src="pics/fusion1.png" alt="Fusion 360 render of the DIY DJ controller" width="80%" />
-</p>
+## Current Version
 
-<table>
-  <tr>
-    <td align="center"><img src="pics/fusion2.png" alt="Fusion 360 angled render" width="100%" /><br /><sub>Fusion 360 render</sub></td>
-    <td align="center"><img src="pics/fusion3.png" alt="Fusion 360 front-side render" width="100%" /><br /><sub>Fusion 360 render</sub></td>
-  </tr>
-</table>
+- `MCU`: SparkFun Pro Micro / ATmega32U4
+- `Firmware`: PlatformIO + Arduino + `MIDIUSB`
+- `Inputs`: `PCF8575` for buttons, `74HC4067` for analog controls, 3 rotary encoders
+- `Mechanical`: custom 3D-printed enclosure designed in Fusion 360
+- `Software target`: Mixxx
 
-### Prototype Build Photos
+The current prototype includes:
+- two-deck transport and loop control
+- EQ, filter, gain, volume, tempo, and crossfader control
+- jog wheels
+- music browsing and load controls
 
-<table>
-  <tr>
-    <td align="center"><img src="pics/overTable1.jpeg" alt="Top view of the finished controller prototype" width="100%" /><br /><sub>Controller top view</sub></td>
-    <td align="center"><img src="pics/overTable2.jpeg" alt="Additional top view of the controller prototype" width="100%" /><br /><sub>Controller top view</sub></td>
-  </tr>
-  <tr>
-    <td align="center"><img src="pics/soldered.jpeg" alt="Hand-soldered electronics assembly" width="100%" /><br /><sub>Electronics assembly</sub></td>
-    <td align="center"><img src="pics/soldered2.jpeg" alt="Additional hand-soldered electronics assembly view" width="100%" /><br /><sub>Electronics assembly</sub></td>
-  </tr>
-  <tr>
-    <td align="center" colspan="2"><img src="pics/hands.jpeg" alt="Work-in-progress photo during assembly" width="65%" /><br /><sub>Work-in-progress assembly</sub></td>
-  </tr>
-</table>
+## V1 Hardware Summary
 
-## Current Status
+- `MCU`: SparkFun Pro Micro / ATmega32U4
+- `Button expander`: `PCF8575` for 16 buttons
+- `Analog mux`: `74HC4067` for 15 potentiometers
+- `Encoders`: 3 total
+  - 1 browse encoder
+  - 2 jog wheel encoders
+- `Direct buttons on MCU`: `A1`, `A2`, `A3`
 
-The controller has already been designed, assembled, flashed, and used successfully as a working prototype.
+## V1 Wiring Summary
 
-The current direction for this revision is:
+These are the important firmware-defined connections for the current working Mixxx version.
 
-- keep the controller stable and usable with Mixxx
-- preserve the working firmware and mapping path
-- improve documentation and build clarity
-- capture the hardware requirements for a more professional next version
+### I2C / Button Expander
 
-Rekordbox was tested during development and basic controls could be made to respond, but the jog wheels never became usable on this hardware revision. Because the jog behavior is essential for real DJ use, this version of the project is being kept as the stable Mixxx build instead.
+- `SDA` -> pin `2`
+- `SCL` -> pin `3`
+- `PCF8575` address is auto-detected on boot in the `0x20` to `0x27` range
 
-## What The Controller Does
+### 74HC4067 Multiplexer
 
-- Sends USB-MIDI messages using the `MIDIUSB` library
-- Supports two-deck transport and loop control
-- Reads 16 button inputs through a `PCF8575` I2C expander
-- Reads 15 analog controls through a `74HC4067` multiplexer
-- Uses three rotary encoders for two jog wheels and music browsing
-- Includes a Mixxx mapping package in `controllers/mixx_Mapping/`
+- `MUX signal` -> `A0`
+- `S0` -> pin `15`
+- `S1` -> pin `14`
+- `S2` -> pin `16`
+- `S3` -> pin `10`
 
-## Hardware Summary
+### Rotary Encoders
 
-The current prototype is built around:
+- `Browse encoder` -> pins `4` and `5`
+- `Jog wheel 1` -> pins `8` and `9`
+- `Jog wheel 2` -> pins `6` and `7`
 
-- Sparkfun Pro Micro 16 MHz
-- PCF8575 I2C GPIO expander
-- 74HC4067 16-channel analog multiplexer
-- Three rotary encoders
-- Multiple buttons and potentiometers for deck and mixer controls
-- A custom 3D-printed enclosure designed in Fusion 360
+### Direct Buttons
 
-### Wiring Summary
+- `A3` -> note `76`
+- `A2` -> note `77`
+- `A1` -> note `78`
 
-#### I2C
+## V1 Current Input Map
 
-- SDA -> Arduino pin 2
-- SCL -> Arduino pin 3
-- PCF8575 address in current firmware: `0x24`
+### PCF8575 Buttons
 
-#### 74HC4067 Multiplexer
+- `Button 0` -> Deck 1 Loop Out
+- `Button 1` -> Deck 1 Loop In
+- `Button 2` -> Deck 1 Hotcue 3
+- `Button 3` -> Deck 1 Hotcue 4
+- `Button 4` -> Deck 1 Hotcue 1
+- `Button 5` -> Deck 1 Hotcue 2
+- `Button 6` -> Deck 1 Cue
+- `Button 7` -> Deck 1 Play/Pause
+- `Button 8` -> Deck 2 Hotcue 4
+- `Button 9` -> Deck 2 Hotcue 3
+- `Button 10` -> Deck 2 Hotcue 1
+- `Button 11` -> Deck 2 Hotcue 2
+- `Button 12` -> Deck 2 Cue
+- `Button 13` -> Deck 2 Play/Pause
+- `Button 14` -> Deck 2 Loop In
+- `Button 15` -> Deck 2 Loop Out
 
-- Signal -> `A0`
-- `S0` -> pin 15
-- `S1` -> pin 14
-- `S2` -> pin 16
-- `S3` -> pin 10
+### Potentiometers
 
-#### Rotary Encoders
+- `Pot 0 / CC 10` -> Deck 1 Gain
+- `Pot 1 / CC 11` -> Deck 2 Gain
+- `Pot 2 / CC 12` -> Deck 1 High EQ
+- `Pot 3 / CC 13` -> Deck 2 High EQ
+- `Pot 4 / CC 14` -> Deck 1 Mid EQ
+- `Pot 5 / CC 15` -> Deck 2 Mid EQ
+- `Pot 6 / CC 16` -> Deck 1 Low EQ
+- `Pot 7 / CC 17` -> Deck 2 Low EQ
+- `Pot 8 / CC 18` -> Deck 1 Filter
+- `Pot 9 / CC 19` -> Deck 2 Filter
+- `Pot 10 / CC 20` -> Deck 2 Volume
+- `Pot 11 / CC 21` -> Deck 2 Tempo
+- `Pot 12 / CC 22` -> Deck 1 Volume
+- `Pot 13 / CC 23` -> Crossfader
+- `Pot 14 / CC 24` -> Deck 1 Tempo
 
-- Music selector -> pins 4 and 5
-- Jog wheel 1 -> pins 8 and 9
-- Jog wheel 2 -> pins 6 and 7
+### Browser And Jog Controls
 
-#### Direct Buttons
+- `Browse encoder / CC 25` -> library scroll
+- `A1 / note 78` -> Load selected track to Deck 1
+- `A2 / note 77` -> Load selected track to Deck 2
+- `A3 / note 76` -> Enter or expand selected folder
+- `Jog wheel on pins 8/9 / CC 26` -> currently mapped to Deck 2
+- `Jog wheel on pins 6/7 / CC 27` -> currently mapped to Deck 1
 
-- `A3` -> Note 76
-- `A2` -> Note 77
-- `A1` -> Note 78
+## V1 Firmware
 
-### Current Input Map
-
-#### PCF8575 Buttons
-
-Deck 1:
-
-- Button 0 -> Loop Out
-- Button 1 -> Loop In
-- Button 2 -> Hotcue 3
-- Button 3 -> Hotcue 4
-- Button 4 -> Hotcue 1
-- Button 5 -> Hotcue 2
-- Button 6 -> Cue
-- Button 7 -> Play/Pause
-
-Deck 2:
-
-- Button 8 -> Hotcue 4
-- Button 9 -> Hotcue 3
-- Button 10 -> Hotcue 1
-- Button 11 -> Hotcue 2
-- Button 12 -> Cue
-- Button 13 -> Play/Pause
-- Button 14 -> Loop In
-- Button 15 -> Loop Out
-
-#### Potentiometers
-
-- Pot 0 -> Deck 1 Gain
-- Pot 1 -> Deck 2 Gain
-- Pot 2 -> Deck 1 High EQ
-- Pot 3 -> Deck 2 High EQ
-- Pot 4 -> Deck 1 Mid EQ
-- Pot 5 -> Deck 2 Mid EQ
-- Pot 6 -> Deck 1 Low EQ
-- Pot 7 -> Deck 2 Low EQ
-- Pot 8 -> Deck 1 Filter
-- Pot 9 -> Deck 2 Filter
-- Pot 10 -> Deck 2 Volume
-- Pot 11 -> Deck 2 Tempo
-- Pot 12 -> Deck 1 Volume
-- Pot 13 -> Crossfader
-- Pot 14 -> Deck 1 Tempo
-
-#### Browser Controls
-
-- Music encoder -> playlist scroll
-- `A3` / Note 76 -> Load selected track into Deck 1
-- `A2` / Note 77 -> Load selected track into Deck 2
-- `A1` / Note 78 -> Enter folder / `GoToItem`
-
-## Firmware
-
-The firmware lives in `CDJ_firmware/src/main.cpp`.
+The current firmware lives in `CDJ_firmware/src/main.cpp`.
 
 ### Current Behavior
 
-- Polls the PCF8575 for 16 button inputs
-- Polls the 74HC4067 for 15 analog controls
-- Reads direct button inputs on `A1`, `A2`, and `A3`
-- Reads three rotary encoders
-- Sends USB-MIDI note and CC messages through `MIDIUSB`
+- auto-detects the `PCF8575` on boot
+- configures the expander pins as input pull-high
+- reads 16 buttons through the `PCF8575`
+- reads 15 analog controls through the `74HC4067`
+- reads 3 rotary encoders
+- reads direct top buttons on `A1`, `A2`, and `A3`
+- sends MIDI note and CC messages through `MIDIUSB`
+- uses an additional filter on the browse encoder to reduce event spam in Mixxx
 
-### Build Configuration
+### Build Target
 
 `CDJ_firmware/platformio.ini` currently targets:
 
@@ -183,87 +150,119 @@ lib_deps =
   arduino-libraries/MIDIUSB @ ^1.0.5
 ```
 
-## Mixxx Mapping
+## Repo Layout
 
-The Mixxx mapping files are:
+- `CDJ_firmware/` - firmware source and PlatformIO config
+- `controllers/mixx_Mapping/` - Mixxx XML and JS mapping
+- `pics/` - renders and prototype photos
+- `reference circuits/` - circuit reference images
+- `CDJv2.f3z` - Fusion 360 model
 
-- `controllers/mixx_Mapping/DJC-DIY.midi.xml`
-- `controllers/mixx_Mapping/DJC-DIY-scripts.js`
+## Source Of Truth
 
-### Important Notes
+- `Firmware`: `CDJ_firmware/src/main.cpp`
+- `Mixxx XML mapping`: `controllers/mixx_Mapping/DJC-DIY.midi.xml`
+- `Mixxx JS mapping`: `controllers/mixx_Mapping/DJC-DIY-scripts.js`
 
-- The current jog wheel assignment is swapped between physical control and deck mapping.
-- The top direct buttons in firmware map as:
-  - `A3` -> Deck 1 load
-  - `A2` -> Deck 2 load
-  - `A1` -> Enter folder
-- The XML has been cleaned so button actions now trigger on `note on` only, instead of being duplicated on `note off`.
-
-## Repository Structure
-
-```text
-.
-|-- CDJ_firmware/          Firmware source and PlatformIO config
-|-- controllers/           Mixxx mapping and Rekordbox experiments/reference
-|-- pics/                  Main renders and build photos
-|-- reference circuits/    Circuit reference screenshots
-`-- CDJv2.f3z              Fusion 360 model
-```
+For exact control behavior, use those files instead of this README.
 
 ## Getting Started
 
 ### Firmware
 
 1. Install [PlatformIO](https://platformio.org/) in VS Code.
-2. Open the `CDJ_firmware` folder.
-3. Connect the Sparkfun Pro Micro by USB.
+2. Open `CDJ_firmware/`.
+3. Connect the SparkFun Pro Micro by USB.
 4. Build or upload:
 
-   ```bash
-   pio run
-   pio run --target upload
-   ```
+```bash
+pio run
+pio run --target upload
+```
 
 ### Mixxx
 
-Copy these files into your Mixxx mappings folder:
+Copy these files into your Mixxx controller mapping folder:
 
 - `controllers/mixx_Mapping/DJC-DIY.midi.xml`
 - `controllers/mixx_Mapping/DJC-DIY-scripts.js`
 
-Then connect the controller and enable the mapping in Mixxx.
+Then enable the mapping in Mixxx.
 
-## Known Issues
+## Important Notes
 
-- Some controls still need verification on the physical controller
-- The jog wheel deck assignment is currently swapped
-- The hardware is still hand-wired rather than PCB-based
-- Rekordbox is not a supported target for this hardware revision
-- Rekordbox tests showed partial success for buttons and general controls, but not for reliable jog-wheel use
+- The stable path for this project is Mixxx, not Rekordbox.
+- The prototype is still hand-wired and not PCB-based yet.
+- The current jog wheel assignment is swapped between physical control and deck mapping.
+- Rekordbox support should be treated as future hardware research, not a feature of this version.
 
-## Version 2 Target Requirements
+## V2 Direction
 
-The next version of this project should be treated as a broader hardware redesign rather than a small firmware update.
+V2 should be a hardware redesign, not a small firmware patch.
 
-Target requirements for that revision:
+The new goal is:
+- keep one `USB-C` cable from the controller to the computer
+- add one `3.5 mm` headphone jack on the controller
+- keep `Master` audio on the computer side
+- send only `Headphones / Cue` audio through the controller
+- keep the project Mixxx-first while moving to a cleaner electronics architecture
 
-- Dedicated headphone connector and proper cue/master monitoring path
-- A controller platform that can support the hardware and USB behavior needed for Rekordbox-style integration
-- A real PCB design replacing the current hand-wired prototype
-- A cleaner mechanical revision for repeatable assembly
-- Better documentation, BOM, and assembly/testing steps for a more sellable project
+In practice, that means:
+- `Master` can stay on MacBook speakers, a separate wired audio interface, or another host-selected output
+- the controller only needs to provide the headphone cue path
 
-### Rekordbox Hardware Note
+## Exact V2 Hardware Stack
 
-The current ATmega32U4 MIDI-only controller architecture is a good fit for Mixxx, but it did not prove sufficient for reliable Rekordbox controller emulation during testing. Basic Rekordbox interaction could be reached, but the jog wheels were never made usable enough for a real workflow. For the next version, Rekordbox compatibility should be considered a hardware-platform decision from the start.
+### Prototype
 
-## Next Development Goals
+- `MCU board`: `ESP32-S3-DevKitC-1`
+- `Audio module`: `Adafruit TLV320DAC3100`
+- `Headphone output`: panel-mounted `3.5 mm TRS` jack
+- `Main external connector`: panel-mounted `USB-C`
 
-1. Keep the current controller stable in Mixxx
-2. Verify and document the working hardware behavior
-3. Prepare requirements for a PCB-based revision
-4. Define the audio and headphone path for the next version
-5. Re-evaluate the controller brain and hardware architecture for future Rekordbox support
+### Custom PCB Direction
+
+- `MCU module`: `ESP32-S3-WROOM-1`
+- `Audio path`: `TLV320DAC3100` or equivalent codec / DAC with headphone output
+- `Existing control hardware to keep initially`: `PCF8575`, `74HC4067`, encoders, buttons, potentiometers
+
+## Why This Stack
+
+- no bulky external audio interface inside the enclosure
+- no internal USB hub
+- one USB device instead of separate controller and sound card devices
+- dedicated headphone cue output without moving the master output into the controller
+- better long-term platform than ATmega32U4 for future firmware and USB work
+
+## V2 Signal Flow
+
+```text
+Computer / Mixxx
+  |
+  | USB-C
+  |
+ESP32-S3
+  |- MIDI control data to Mixxx
+  |- USB audio device for headphone cue
+  |
+  +-- I2S + I2C --> TLV320DAC3100 --> 3.5 mm headphone jack
+
+Master audio stays on the computer-side output.
+```
+
+## V2 Firmware Goals
+
+- present as a composite USB device with `MIDI + audio`
+- port the current controller logic from ATmega32U4 to ESP32-S3
+- keep the current control surface behavior as much as possible
+- configure the headphone DAC over `I2C`
+- stream cue audio to the DAC over `I2S`
+
+## Rekordbox Note
+
+Moving to `ESP32-S3` gives the project a much better platform for USB experiments, but it does not by itself guarantee Rekordbox compatibility.
+
+It especially does not guarantee that the jog wheels will work correctly in Rekordbox. V2 should still be treated as a Mixxx-first design, with Rekordbox compatibility kept as future research.
 
 ## License
 
