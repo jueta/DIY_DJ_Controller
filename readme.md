@@ -48,6 +48,16 @@ The current prototype includes:
 
 These are the important firmware-defined connections for the current working Mixxx version.
 
+### Wiring Diagrams
+
+<p>
+  <img src="wiring/wiring_arduino.png" alt="Arduino wiring" width="180">
+  <img src="wiring/wiring_VCC.png" alt="VCC wiring" width="180">
+  <img src="wiring/wiring_GND.png" alt="GND wiring" width="180">
+  <img src="wiring/wiring_pullup.png" alt="Pull-up wiring" width="180">
+  <img src="wiring/wiring_sensorSignals.png" alt="Sensor signal wiring" width="180">
+</p>
+
 ### I2C / Button Expander
 
 - `SDA` -> pin `2`
