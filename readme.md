@@ -2,7 +2,7 @@
 
 Homemade CDJ-style DJ controller with a 3D-printed enclosure, hand-built electronics, and custom firmware.
 
-This project was inspired by my friend [@mandiclab](https://github.com/mandiclab) and the [djc-diy](https://github.com/mandiclab/djc-diy) project.
+
 
 This repository documents:
 - the current stable Mixxx prototype
@@ -267,3 +267,4 @@ It especially does not guarantee that the jog wheels will work correctly in Reko
 ## License
 
 License not defined yet in the repository.
+This project was inspired by my friend [@mandiclab](https://github.com/mandiclab) and the [djc-diy](https://github.com/mandiclab/djc-diy) project.
