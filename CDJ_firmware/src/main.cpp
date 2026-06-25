@@ -1,5 +1,3 @@
-// SPDX-License-Identifier: GPL-3.0-only
-
 #include <Arduino.h>
 #include <MIDIUSB.h>
 #include <Wire.h>
@@ -68,13 +66,13 @@ void configurePCF8575Inputs();
 
 void setup()
 {
-  // Serial.begin(9600);
-  // delay(500);
+   Serial.begin(115200);
+   delay(1000);
   // Serial.println("Booting DJ controller...");
 
   // Initialize I2C for PCF8575
   Wire.begin();
-  delay(50); // Give I2C time to initialize
+  delay(500); // Give I2C time to initialize
 
   if (detectPCF8575())
   {
@@ -125,10 +123,10 @@ void loop()
 
     if (pressed && !buttonStates[i])
     {
-      // Serial.print("Button ");
-      // Serial.print(i);
-      // Serial.print(" pressed - Note: ");
-      // Serial.println(buttonNotes[i]);
+       Serial.print("Button ");
+       Serial.print(i);
+       Serial.print(" pressed - Note: ");
+       Serial.println(buttonNotes[i]);
 
       noteOn(buttonNotes[i]);
       buttonStates[i] = true;
@@ -416,11 +414,11 @@ void configurePCF8575Inputs()
 
   if (error == 0)
   {
-    // Serial.println("PCF8575 configured for input pull-high");
+     Serial.println("PCF8575 configured for input pull-high");
   }
   else
   {
-    // Serial.print("PCF8575 init write failed, error=");
-    // Serial.println(error);
+     Serial.print("PCF8575 init write failed, error=");
+     Serial.println(error);
   }
 }
