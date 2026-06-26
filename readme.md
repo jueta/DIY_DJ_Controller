@@ -67,13 +67,13 @@ This is the practical parts list for rebuilding the current working v1 prototype
 
 | Qty | Material | Notes |
 | --- | --- | --- |
-| 1 | SparkFun Pro Micro / ATmega32U4 board | The KiCad v1 schematic uses a USB-C Pro Micro clone footprint. Use the matching USB cable for the board you build with. |
-| 1 | `PCF8575` / HW-331 16-bit I2C IO expander module | Handles the 16 deck buttons. |
-| 1 | `CD74HC4067` / `74HC4067` 16-channel analog multiplexer module | Handles the 15 analog controls. |
-| 18 | Omron `B3F-40xx` 12x12 mm THT tactile switches | 16 deck buttons plus 2 direct music-selection buttons. |
-| 3 | Alps `EC11E` vertical rotary encoders, `H20mm` | 1 browse encoder plus 2 jog wheel encoders. |
-| 10 | TT Electronics `P0915N` vertical rotary potentiometers | Gain, EQ, filter, and other rotary controls. |
-| 5 | `B103` 75 mm linear slide potentiometers, 10 kOhm | Deck volume, tempo, and crossfader controls. |
+| 1 | 🧠 Microcontroller | Arduino Pro Micro - ATmega32U4 - USB Type C |
+| 18 | 🔘 Buttons | B3F-4055 - 12x12x7.3mm |
+| 3 | 🔄 Rotary Encoders | EC11 - 15mm shaft lenght - D shaft - without push button |
+| 10 | 🎛️ Rotary Potentiometers | R0902N - B103 - 10kΩ - 23mm shaft lenght - D shaft |
+| 5 | 🎚️ Slide Potentiometers | 60mm - B103 - 10kΩ - 15mm handle lenght |
+| 1 | 🔘 Buttons pin expander | `PCF8575` / HW-331 16-bit I2C IO expander module |
+| 1 | 🎛️ Potentiometers pin expander | `CD74HC4067` / `74HC4067` 16-channel analog multiplexer module |
 | 1 | 3D-printed enclosure body | `3D models/DIY_CDJ_body.stl`. |
 | 1 | 3D-printed enclosure lid | `3D models/DIY_CDJ_lid.stl`. |
 | 1 each | 3D-printed caps and control parts | `crossfader.stl`, `cue.stl`, `encoder.stl`, `joggingWheel.stl`, `knob.stl`, `performance-pad.stl`, and `play-pause.stl`. |
