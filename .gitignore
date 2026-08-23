@@ -15,3 +15,5 @@
 
 # PlatformIO generated files
 CDJ_firmware/.pio/
+
+*.lck

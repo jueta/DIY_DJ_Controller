@@ -1,0 +1,8 @@
+fix: Good first issue: remove tracked generated files from git (fp-info-cac
+
+- .gitignore
+- untrack 2 generated files
+
+Fixes #7
+
+Signed-off-by: Vedant Madane <6527493+VedantMadane@users.noreply.github.com>
